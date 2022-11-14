@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".StartFragment">
+
+    <TextView
+        android:id="@+id/town"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginVertical="32dp"
+        android:textColor="@color/light_blue_900"
+        android:textSize="40sp"
+        android:layout_weight="5"
+        tools:text="@string/town" />
+
+    <TextView
+        android:id="@+id/temperature"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginVertical="32dp"
+        android:textColor="@color/light_blue_900"
+        android:textSize="40sp"
+        tools:text="@string/temperature" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
