@@ -8,9 +8,6 @@ import android.content.Intent
 import android.net.Uri
 import android.widget.RemoteViews
 
-/**
- * Implementation of App Widget functionality.
- */
 class WeatherWidget : AppWidgetProvider() {
     override fun onUpdate(
         context: Context,
@@ -44,9 +41,6 @@ internal fun updateAppWidget(
     //3. set pending intent on view
     remoteViews.setOnClickPendingIntent(R.id.updateButton, pendingIntent)
 
-
     // Instruct the widget manager to update the widget
     appWidgetManager.updateAppWidget(appWidgetId, remoteViews)
-
-
 }
