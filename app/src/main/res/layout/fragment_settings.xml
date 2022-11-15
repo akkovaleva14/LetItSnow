@@ -4,40 +4,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.StartFragment">
+    tools:context=".ui.SettingsFragment">
 
-    <TextView
-        android:id="@+id/town"
+    <Spinner
+        android:id="@+id/spinner"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="0dp"
         android:layout_marginHorizontal="32dp"
         android:layout_marginVertical="32dp"
         android:layout_weight="1"
         android:textColor="@color/light_blue_900"
-        android:textSize="40sp"
-        android:text="@string/town"
-        tools:text="@string/town" />
+        android:textSize="40sp" />
 
-    <TextView
-        android:id="@+id/temperature"
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchIt"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="0dp"
         android:layout_marginHorizontal="32dp"
         android:layout_marginVertical="32dp"
         android:layout_weight="5"
+        android:text="@string/switchIt"
         android:textColor="@color/light_blue_900"
-        android:textSize="40sp"
-        android:text="@string/temperature"
-        tools:text="@string/temperature" />
+        android:textSize="40sp" />
 
     <Button
-        android:id="@+id/buttonSettings"
+        android:id="@+id/buttonArrowBack"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginHorizontal="32dp"
         android:layout_marginVertical="32dp"
         android:layout_weight="0"
-        android:background="@drawable/settings"
+        android:background="@drawable/arrowback"
         android:textColor="@color/light_blue_900" />
 
 </LinearLayout>
