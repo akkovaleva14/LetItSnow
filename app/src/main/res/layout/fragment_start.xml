@@ -14,7 +14,7 @@
         android:layout_marginVertical="32dp"
         android:layout_weight="1"
         android:textColor="@color/light_blue_900"
-        android:textSize="40sp"
+        android:textSize="32sp"
         android:text="@string/town"
         tools:text="@string/town" />
 
@@ -26,7 +26,7 @@
         android:layout_marginVertical="32dp"
         android:layout_weight="5"
         android:textColor="@color/light_blue_900"
-        android:textSize="40sp"
+        android:textSize="32sp"
         android:text="@string/temperature"
         tools:text="@string/temperature" />
 

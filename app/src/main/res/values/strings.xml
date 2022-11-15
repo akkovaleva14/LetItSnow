@@ -7,12 +7,12 @@
     <string name="temperature">24°C</string>
     <string name="switchIt">Dark mode?</string>
 
-    <string-array name="spinner">
+    <string-array name="spinner_array">
         <item>Saint-Petersburg</item>
         <item>Moscow</item>
         <item>Obninsk</item>
-        <item>Paris</item>
+        <item>Cheboksary</item>
         <item>Rio de Janeiro</item>
-        <item>London</item>
+        <item>Paris</item>
     </string-array>
 </resources>
