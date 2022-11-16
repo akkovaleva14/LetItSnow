@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Spinner
 import com.application.letitsnow.R
 import com.application.letitsnow.databinding.FragmentSettingsBinding
 
@@ -32,7 +31,6 @@ class SettingsFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
             parentFragmentManager.popBackStack()
         }
 
-        // val spinner: Spinner = findViewById(R.id.spinner)
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter.createFromResource(
             requireContext(),
@@ -44,7 +42,6 @@ class SettingsFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
             // Apply the adapter to the spinner
             binding?.spinner?.adapter = adapter
         }
-
         binding?.spinner?.onItemSelectedListener = this
     }
 
@@ -56,8 +53,6 @@ class SettingsFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
     override fun onNothingSelected(parent: AdapterView<*>) {
         // Another interface callback
     }
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()

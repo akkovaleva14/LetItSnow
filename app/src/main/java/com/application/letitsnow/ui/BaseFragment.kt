@@ -11,5 +11,4 @@ abstract class BaseFragment : Fragment() {
             ?.addToBackStack(fragmentTag)
             ?.commit()
     }
-
 }

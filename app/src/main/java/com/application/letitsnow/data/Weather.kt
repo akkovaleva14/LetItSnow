@@ -1,4 +1,4 @@
-package com.application.letitsnow
+package com.application.letitsnow.data
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -6,9 +6,9 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Weather(
     @SerialName("location")
-    val location: Map<String, String>? = emptyMap(),
+    val location: Location,
 
     @SerialName("current")
-    val current: Map<String, String>? = emptyMap(),
+    val current: Current,
 
     )
