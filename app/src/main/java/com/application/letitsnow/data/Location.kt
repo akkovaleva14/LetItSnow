@@ -17,7 +17,7 @@ data class Location(
     val lon: Double,
 
     @SerialName("name")
-    val name: String,
+    val name: String? = null,
 
     @SerialName("region")
     val region: String,

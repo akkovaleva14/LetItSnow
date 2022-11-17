@@ -9,10 +9,8 @@ data class Current(
     val cloud: Int,
     @SerialName("condition")
     val condition: Condition,
-
     @SerialName("feelslike_c")
     val feelslike_c: Double,
-
     @SerialName("feelslike_f")
     val feelslike_f: Double,
     @SerialName("gust_kph")
@@ -35,8 +33,10 @@ data class Current(
     val pressure_in: Double,
     @SerialName("pressure_mb")
     val pressure_mb: Double,
+
     @SerialName("temp_c")
-    val temp_c: Double,
+    val temp_c: Double = 0.0,
+
     @SerialName("temp_f")
     val temp_f: Double,
     @SerialName("uv")

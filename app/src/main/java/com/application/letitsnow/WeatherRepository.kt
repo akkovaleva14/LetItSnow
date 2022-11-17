@@ -7,9 +7,8 @@ import com.application.letitsnow.network.NetworkState
 class WeatherRepository (val api: ApiService) {
 
 
-    suspend fun getTemperatureOfTown(townName : String) : NetworkState<List<Weather>> {
-        val response = api.getTemperatureOfTown(town = townName)
-
+    suspend fun getTown(townName : String) : NetworkState<List<Weather>> {
+        val response = api.getTown(town = townName)
 
         return if (response.isSuccessful) {
             val responseBody = response.body()
