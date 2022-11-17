@@ -6,12 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.lifecycle.ViewModelProvider
 import com.application.letitsnow.R
+import com.application.letitsnow.WeatherViewModel
 import com.application.letitsnow.databinding.FragmentSettingsBinding
 
 class SettingsFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
 
     private var binding: FragmentSettingsBinding? = null
+    private var viewModel: WeatherViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +24,11 @@ class SettingsFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        viewModel = ViewModelProvider(
+            this,
+            WeatherViewModel.factory((activity as? MainActivity)?.getRepository())
+        )[WeatherViewModel::class.java]
+
         binding = FragmentSettingsBinding.inflate(inflater, container, false)
         return binding!!.root
     }
@@ -43,6 +51,17 @@ class SettingsFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
             binding?.spinner?.adapter = adapter
         }
         binding?.spinner?.onItemSelectedListener = this
+
+
+        viewModel?.weatherList?.observe(
+            viewLifecycleOwner
+        ) { list ->
+            list?.let {
+             //   cryptoAdapter?.data = list
+             //   cryptoAdapter?.isUsd = viewModel?.isUsd!!.get()
+            }
+        }
+
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {

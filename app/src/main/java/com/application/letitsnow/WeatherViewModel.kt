@@ -1,20 +1,18 @@
 package com.application.letitsnow
 
 import android.util.Log
-import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.*
 import com.application.letitsnow.data.Weather
 import com.application.letitsnow.network.NetworkState
 import kotlinx.coroutines.launch
 import java.util.*
-import kotlin.properties.ObservableProperty
 
 class WeatherViewModel(private val weatherRepository: WeatherRepository?) : ViewModel() {
 
     private val _weatherList = MutableLiveData<List<Weather?>?>()
     val weatherList: LiveData<List<Weather?>?> = _weatherList
-    val townName = ObservableField<String>().toString()
+    private val townName = ObservableField<String>().toString()
 
 
     fun getCurrentWeather() {

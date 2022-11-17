@@ -4,16 +4,39 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.application.letitsnow.WeatherViewModel
 import com.application.letitsnow.databinding.FragmentStartBinding
 
 class StartFragment : BaseFragment() {
 
     private var binding: FragmentStartBinding? = null
+    private lateinit var viewModel: WeatherViewModel
+
+    companion object {
+        const val TOWN = "town"
+        fun newInstance(
+            town: String?,
+        ) = StartFragment().apply {
+            arguments = Bundle().apply {
+                putString(TOWN, town)
+            }
+        }
+    }
+
+    private var town: String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.getString(TOWN)?.let { arg ->
+            (arg as? String?)?.let { town = it }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+     //   viewModel.town.set(town)
         binding = FragmentStartBinding.inflate(inflater, container, false)
         return binding!!.root
     }
