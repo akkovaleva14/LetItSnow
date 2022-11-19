@@ -14,6 +14,6 @@ interface ApiService {
         @Query("key") key : String = API_KEY,
         @Query("q") town : String = "Saint Petersburg",
         @Query("aqi") aqi : String = "no",
-    ) : Response<List<Weather>>
+    ) : Response<Weather>
 
 }

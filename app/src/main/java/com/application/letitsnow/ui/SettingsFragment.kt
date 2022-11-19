@@ -53,20 +53,21 @@ class SettingsFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
         binding?.spinner?.onItemSelectedListener = this
 
 
-        viewModel?.weatherList?.observe(
+        viewModel?.weather?.observe(
             viewLifecycleOwner
         ) { list ->
             list?.let {
-             //   cryptoAdapter?.data = list
-             //   cryptoAdapter?.isUsd = viewModel?.isUsd!!.get()
+                //   cryptoAdapter?.data = list
+                //   cryptoAdapter?.isUsd = viewModel?.isUsd!!.get()
             }
         }
 
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
-        // An item was selected. You can retrieve the selected item using
-        // parent.getItemAtPosition(pos)
+        // An item was selected. You can retrieve the selected item using parent.getItemAtPosition(pos)
+        val selectedTown: String = parent.getItemAtPosition(pos).toString()
+        StartFragment.newInstance(selectedTown)
     }
 
     override fun onNothingSelected(parent: AdapterView<*>) {

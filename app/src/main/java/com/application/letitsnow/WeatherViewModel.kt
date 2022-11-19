@@ -10,10 +10,10 @@ import java.util.*
 
 class WeatherViewModel(private val weatherRepository: WeatherRepository?) : ViewModel() {
 
-    private val _weatherList = MutableLiveData<List<Weather?>?>()
-    val weatherList: LiveData<List<Weather?>?> = _weatherList
-    private val townName = ObservableField<String>().toString()
+    private val _weather = MutableLiveData<Weather?>()
+    val weather: LiveData<Weather?> = _weather
 
+    private val townName = ObservableField<String>().toString()
 
     fun getCurrentWeather() {
 
@@ -22,10 +22,10 @@ class WeatherViewModel(private val weatherRepository: WeatherRepository?) : View
 
                 weatherRepository.getTown(townName)
                 when (val infoTown =
-                    weatherRepository.getTown(townName.lowercase(Locale.getDefault()))) {
+                    weatherRepository.getTown(townName)) {
                     is NetworkState.Success -> {
-                        _weatherList.postValue(infoTown.data)
-                        Log.i("sasha", "getCurrentList: ${infoTown.data}")
+                        _weather.postValue(infoTown.data)
+                        Log.i("sasha", "getCurrentWeather: ${infoTown.data}")
                     }
                     is NetworkState.Error -> {
                         Log.e("ERROR", "NetworkState error")

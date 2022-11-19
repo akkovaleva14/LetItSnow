@@ -13,12 +13,12 @@ class StartFragment : BaseFragment() {
     private lateinit var viewModel: WeatherViewModel
 
     companion object {
-        const val TOWN = "town"
+        const val SELECTED_TOWN = "selectedTown"
         fun newInstance(
-            town: String?,
+            selectedTown: String?,
         ) = StartFragment().apply {
             arguments = Bundle().apply {
-                putString(TOWN, town)
+                putString(SELECTED_TOWN, selectedTown)
             }
         }
     }
@@ -27,7 +27,7 @@ class StartFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.getString(TOWN)?.let { arg ->
+        arguments?.getString(SELECTED_TOWN)?.let { arg ->
             (arg as? String?)?.let { town = it }
         }
     }
