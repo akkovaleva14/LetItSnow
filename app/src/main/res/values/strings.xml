@@ -15,4 +15,6 @@
         <item>Rio de Janeiro</item>
         <item>Paris</item>
     </string-array>
+
+    <string name="message">Something is wrong :(</string>
 </resources>

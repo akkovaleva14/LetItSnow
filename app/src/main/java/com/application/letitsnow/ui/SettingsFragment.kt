@@ -6,10 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
+import androidx.transition.Fade
+import androidx.transition.Transition
+import androidx.transition.TransitionManager
 import com.application.letitsnow.R
 import com.application.letitsnow.WeatherViewModel
 import com.application.letitsnow.databinding.FragmentSettingsBinding
+import com.application.letitsnow.network.isOnline
 
 class SettingsFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
 
@@ -49,19 +54,11 @@ class SettingsFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             // Apply the adapter to the spinner
             binding?.spinner?.adapter = adapter
+            checkError()
         }
         binding?.spinner?.onItemSelectedListener = this
 
-
-        viewModel?.weather?.observe(
-            viewLifecycleOwner
-        ) { list ->
-            list?.let {
-                //   cryptoAdapter?.data = list
-                //   cryptoAdapter?.isUsd = viewModel?.isUsd!!.get()
-            }
-        }
-
+        checkError()
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
@@ -72,6 +69,28 @@ class SettingsFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
 
     override fun onNothingSelected(parent: AdapterView<*>) {
         // Another interface callback
+        StartFragment.newInstance("Saint-Petersburg")
+    }
+
+
+    private fun checkError() {
+        if (isOnline(context)) {
+            viewModel?.getCurrentWeather()
+            toggle(false)
+        } else {
+            toggle(true)
+        }
+    }
+
+    private fun toggle(show: Boolean) {
+        val transition: Transition = Fade()
+        transition.duration = 600
+        transition.addTarget(binding?.toast as View)
+        TransitionManager.beginDelayedTransition(
+            binding?.root as ViewGroup,
+            transition
+        )
+        binding?.toast?.isVisible = show
     }
 
     override fun onDestroyView() {
