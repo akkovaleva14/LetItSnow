@@ -1,13 +1,14 @@
-package com.application.letitsnow
+package com.application.letitsnow.ui.start
 
 import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.*
+import com.application.letitsnow.WeatherRepository
 import com.application.letitsnow.data.Weather
 import com.application.letitsnow.network.NetworkState
 import kotlinx.coroutines.launch
 
-class WeatherViewModel(private val weatherRepository: WeatherRepository?) : ViewModel() {
+class StartViewModel(private val weatherRepository: WeatherRepository?) : ViewModel() {
 
     val town = ObservableField<String>()
 
@@ -42,7 +43,7 @@ class WeatherViewModel(private val weatherRepository: WeatherRepository?) : View
             weatherRepository: WeatherRepository?
         ) = object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return WeatherViewModel(weatherRepository) as T
+                return StartViewModel(weatherRepository) as T
             }
         }
     }

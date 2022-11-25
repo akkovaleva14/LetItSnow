@@ -1,4 +1,4 @@
-package com.application.letitsnow.ui
+package com.application.letitsnow.ui.settings
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,14 +12,18 @@ import androidx.transition.Fade
 import androidx.transition.Transition
 import androidx.transition.TransitionManager
 import com.application.letitsnow.R
-import com.application.letitsnow.WeatherViewModel
+import com.application.letitsnow.ui.start.StartViewModel
 import com.application.letitsnow.databinding.FragmentSettingsBinding
 import com.application.letitsnow.network.isOnline
+import com.application.letitsnow.ui.BaseFragment
+import com.application.letitsnow.ui.MainActivity
+import com.application.letitsnow.ui.start.StartFragment
 
 class SettingsFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
 
     private var binding: FragmentSettingsBinding? = null
-    private var viewModel: WeatherViewModel? = null
+    private var viewModel: StartViewModel? = null
+    private var town: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,9 +35,10 @@ class SettingsFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
     ): View {
         viewModel = ViewModelProvider(
             this,
-            WeatherViewModel.factory((activity as? MainActivity)?.getRepository())
-        )[WeatherViewModel::class.java]
+            StartViewModel.factory((activity as? MainActivity)?.getRepository())
+        )[StartViewModel::class.java]
 
+        viewModel?.town?.set(town)
         binding = FragmentSettingsBinding.inflate(inflater, container, false)
         return binding!!.root
     }
@@ -41,6 +46,7 @@ class SettingsFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
     override fun onResume() {
         super.onResume()
         binding?.buttonArrowBack?.setOnClickListener {
+            checkError()
             parentFragmentManager.popBackStack()
         }
 
@@ -65,11 +71,13 @@ class SettingsFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
         // An item was selected. You can retrieve the selected item using parent.getItemAtPosition(pos)
         val selectedTown: String = parent.getItemAtPosition(pos).toString()
         StartFragment.newInstance(selectedTown)
+        checkError()
     }
 
     override fun onNothingSelected(parent: AdapterView<*>) {
         // Another interface callback
         StartFragment.newInstance("Saint-Petersburg")
+        checkError()
     }
 
 

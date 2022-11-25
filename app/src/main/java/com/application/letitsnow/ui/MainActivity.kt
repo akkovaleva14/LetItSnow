@@ -7,6 +7,7 @@ import com.application.letitsnow.R
 import com.application.letitsnow.WeatherRepository
 import com.application.letitsnow.network.ApiService
 import com.application.letitsnow.network.RetrofitClient
+import com.application.letitsnow.ui.start.StartFragment
 
 class MainActivity : AppCompatActivity() {
     var apiService: ApiService? = null

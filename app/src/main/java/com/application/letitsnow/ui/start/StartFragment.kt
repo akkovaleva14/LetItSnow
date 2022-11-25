@@ -1,23 +1,20 @@
-package com.application.letitsnow.ui
+package com.application.letitsnow.ui.start
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
-import androidx.transition.Fade
-import androidx.transition.Transition
-import androidx.transition.TransitionManager
-import com.application.letitsnow.WeatherViewModel
 import com.application.letitsnow.data.Weather
 import com.application.letitsnow.databinding.FragmentStartBinding
-import com.application.letitsnow.network.isOnline
+import com.application.letitsnow.ui.BaseFragment
+import com.application.letitsnow.ui.MainActivity
+import com.application.letitsnow.ui.settings.SettingsFragment
 
 class StartFragment : BaseFragment() {
 
     private var binding: FragmentStartBinding? = null
-    private var viewModel: WeatherViewModel? = null
+    private var viewModel: StartViewModel? = null
 
     companion object {
         const val SELECTED_TOWN = "selectedTown"
@@ -45,8 +42,8 @@ class StartFragment : BaseFragment() {
     ): View {
         viewModel = ViewModelProvider(
             this,
-            WeatherViewModel.factory((activity as? MainActivity)?.getRepository())
-        )[WeatherViewModel::class.java]
+            StartViewModel.factory((activity as? MainActivity)?.getRepository())
+        )[StartViewModel::class.java]
 
         viewModel?.town?.set(town)
         binding = FragmentStartBinding.inflate(inflater, container, false)
@@ -64,7 +61,7 @@ class StartFragment : BaseFragment() {
             viewLifecycleOwner
         ) { bindWeatherOfTown(it) }
 
-        checkError()
+     //   checkError()
     }
 
     private fun bindWeatherOfTown(weather: Weather?) {
@@ -72,7 +69,7 @@ class StartFragment : BaseFragment() {
         binding?.temperature?.text = weather?.current?.temp_c?.toString()
     }
 
-    private fun checkError() {
+    /*private fun checkError() {
         if (isOnline(context)) {
             viewModel?.getCurrentWeather()
             toggle(false)
@@ -90,7 +87,7 @@ class StartFragment : BaseFragment() {
             transition
         )
         binding?.toast?.isVisible = show
-    }
+    }*/
 
     override fun onDestroyView() {
         super.onDestroyView()
