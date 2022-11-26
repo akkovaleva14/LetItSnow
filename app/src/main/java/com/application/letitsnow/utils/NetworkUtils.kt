@@ -1,4 +1,4 @@
-package com.application.letitsnow.network
+package com.application.letitsnow.utils
 
 import android.content.Context
 import android.net.ConnectivityManager

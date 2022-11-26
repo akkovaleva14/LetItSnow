@@ -11,6 +11,7 @@ class WeatherRepository(private val api: ApiService) {
 
         return if (response.isSuccessful) {
             val responseBody = response.body()
+
             if (responseBody != null) {
                 NetworkState.Success(responseBody)
             } else {

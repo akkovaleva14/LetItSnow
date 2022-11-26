@@ -9,12 +9,18 @@ import com.application.letitsnow.data.Weather
 import com.application.letitsnow.databinding.FragmentStartBinding
 import com.application.letitsnow.ui.BaseFragment
 import com.application.letitsnow.ui.MainActivity
+import com.application.letitsnow.ui.settings.OnSelectedTownClickListener
 import com.application.letitsnow.ui.settings.SettingsFragment
 
 class StartFragment : BaseFragment() {
 
     private var binding: FragmentStartBinding? = null
     private var viewModel: StartViewModel? = null
+    private val callback = object : OnSelectedTownClickListener{
+        override fun onTownClick(town: String) {
+            viewModel?.onTownChanged(town)
+        }
+    }
 
     companion object {
         const val SELECTED_TOWN = "selectedTown"
@@ -27,15 +33,6 @@ class StartFragment : BaseFragment() {
         }
     }
 
-    private var town: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.getString(SELECTED_TOWN)?.let { arg ->
-            (arg as? String?)?.let { town = it }
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,23 +42,33 @@ class StartFragment : BaseFragment() {
             StartViewModel.factory((activity as? MainActivity)?.getRepository())
         )[StartViewModel::class.java]
 
-        viewModel?.town?.set(town)
         binding = FragmentStartBinding.inflate(inflater, container, false)
+
+        binding?.apply {
+            data = viewModel
+            lifecycleOwner = this@StartFragment
+        }
         return binding!!.root
     }
 
     override fun onResume() {
         super.onResume()
+
+        arguments?.getString(SELECTED_TOWN)?.let { arg ->
+            (arg as? String)?.let {
+                viewModel?.town?.set(it)
+            }
+        }
+
         binding?.buttonSettings?.setOnClickListener {
-            val settingsFragment = SettingsFragment()
-            replaceFragment(settingsFragment)
+            replaceFragment(SettingsFragment.newInstance(callback))
         }
 
         viewModel?.weather?.observe(
             viewLifecycleOwner
         ) { bindWeatherOfTown(it) }
 
-     //   checkError()
+        //   checkError()
     }
 
     private fun bindWeatherOfTown(weather: Weather?) {

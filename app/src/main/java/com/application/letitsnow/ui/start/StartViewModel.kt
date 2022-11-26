@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 class StartViewModel(private val weatherRepository: WeatherRepository?) : ViewModel() {
 
     val town = ObservableField<String>()
+    val temp = ObservableField<String>()
 
     private val _weather = MutableLiveData<Weather?>()
     val weather: LiveData<Weather?> = _weather
@@ -24,6 +25,7 @@ class StartViewModel(private val weatherRepository: WeatherRepository?) : ViewMo
                         weatherRepository.getTownWeather(it)) {
                         is NetworkState.Success -> {
                             _weather.postValue(townWeather.data)
+                            temp.set(townWeather.data.current.temp_c.toString())
                             Log.i("sasha", "getCurrentWeather: ${townWeather.data}")
                         }
                         is NetworkState.Error -> {
@@ -36,6 +38,11 @@ class StartViewModel(private val weatherRepository: WeatherRepository?) : ViewMo
             }
         }
 
+    }
+
+    fun onTownChanged(value: String) {
+        town.set(value)
+        getCurrentWeather()
     }
 
     companion object {

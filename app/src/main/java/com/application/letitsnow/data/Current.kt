@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Current(
-    @SerialName("cloud")
+    /*@SerialName("cloud")
     val cloud: Int,
     @SerialName("condition")
     val condition: Condition,
@@ -32,12 +32,12 @@ data class Current(
     @SerialName("pressure_in")
     val pressure_in: Double,
     @SerialName("pressure_mb")
-    val pressure_mb: Double,
+    val pressure_mb: Double,*/
 
     @SerialName("temp_c")
-    val temp_c: Double = 0.0,
+    val temp_c: Double = 0.0
 
-    @SerialName("temp_f")
+    /*@SerialName("temp_f")
     val temp_f: Double,
     @SerialName("uv")
     val uv: Double,
@@ -52,5 +52,5 @@ data class Current(
     @SerialName("wind_kph")
     val wind_kph: Double,
     @SerialName("wind_mph")
-    val wind_mph: Double
+    val wind_mph: Double*/
 )

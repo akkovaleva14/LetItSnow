@@ -1,5 +1,6 @@
 package com.application.letitsnow.network
 
+import com.application.letitsnow.utils.BASE_URL
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
@@ -27,7 +28,7 @@ class RetrofitClient {
                     OkHttpClient.Builder().addInterceptor(interceptor).build()
 
                 val retrofit = Retrofit.Builder()
-                    .baseUrl("http://api.weatherapi.com/")
+                    .baseUrl(BASE_URL)
                     .client(client)
                     .addConverterFactory(json.asConverterFactory(contentType))
                     .build()

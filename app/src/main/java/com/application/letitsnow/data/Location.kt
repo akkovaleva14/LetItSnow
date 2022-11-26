@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Location(
-    @SerialName("country")
+    /*@SerialName("country")
     val country: String,
     @SerialName("lat")
     val lat: Double,
@@ -14,13 +14,13 @@ data class Location(
     @SerialName("localtime_epoch")
     val localtime_epoch: Int,
     @SerialName("lon")
-    val lon: Double,
+    val lon: Double,*/
 
     @SerialName("name")
-    val name: String? = null,
-
+    val name: String? = null
+/*
     @SerialName("region")
     val region: String,
     @SerialName("tz_id")
-    val tz_id: String
+    val tz_id: String*/
 )

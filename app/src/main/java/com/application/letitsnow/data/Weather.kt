@@ -9,6 +9,5 @@ data class Weather(
     val location: Location,
 
     @SerialName("current")
-    val current: Current,
-
-    )
+    val current: Current
+)

@@ -14,19 +14,21 @@ import androidx.transition.TransitionManager
 import com.application.letitsnow.R
 import com.application.letitsnow.ui.start.StartViewModel
 import com.application.letitsnow.databinding.FragmentSettingsBinding
-import com.application.letitsnow.network.isOnline
+import com.application.letitsnow.utils.isOnline
 import com.application.letitsnow.ui.BaseFragment
 import com.application.letitsnow.ui.MainActivity
 import com.application.letitsnow.ui.start.StartFragment
 
-class SettingsFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
+class SettingsFragment(val listener: OnSelectedTownClickListener) : BaseFragment(),
+    AdapterView.OnItemSelectedListener {
 
     private var binding: FragmentSettingsBinding? = null
     private var viewModel: StartViewModel? = null
     private var town: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    companion object {
+        fun newInstance(listener: OnSelectedTownClickListener) = SettingsFragment(listener)
+
     }
 
     override fun onCreateView(
@@ -70,7 +72,8 @@ class SettingsFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
         // An item was selected. You can retrieve the selected item using parent.getItemAtPosition(pos)
         val selectedTown: String = parent.getItemAtPosition(pos).toString()
-        StartFragment.newInstance(selectedTown)
+        listener.onTownClick(selectedTown)
+
         checkError()
     }
 
