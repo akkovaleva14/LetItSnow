@@ -1,5 +1,6 @@
 package com.application.letitsnow.network
 
+import android.util.Log
 import com.application.letitsnow.utils.BASE_URL
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -8,6 +9,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitClient {
     companion object {
@@ -22,15 +24,16 @@ class RetrofitClient {
             if (api == null) {
                 val contentType = "application/json".toMediaType()
 
-                val interceptor = HttpLoggingInterceptor()
-                interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+                val interceptor =
+                    HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+
                 val client: OkHttpClient =
                     OkHttpClient.Builder().addInterceptor(interceptor).build()
 
                 val retrofit = Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .client(client)
-                    .addConverterFactory(json.asConverterFactory(contentType))
+                    .addConverterFactory(GsonConverterFactory.create())
                     .build()
                 api = retrofit.create(ApiService::class.java)
             }

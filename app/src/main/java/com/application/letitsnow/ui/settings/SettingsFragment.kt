@@ -37,7 +37,7 @@ class SettingsFragment(val listener: OnSelectedTownClickListener) : BaseFragment
     ): View {
         viewModel = ViewModelProvider(
             this,
-            StartViewModel.factory((activity as? MainActivity)?.getRepository())
+            StartViewModel.factory((activity as? MainActivity)?.getRepository(), context)
         )[StartViewModel::class.java]
 
         viewModel?.town?.set(town)
@@ -79,7 +79,6 @@ class SettingsFragment(val listener: OnSelectedTownClickListener) : BaseFragment
 
     override fun onNothingSelected(parent: AdapterView<*>) {
         // Another interface callback
-        StartFragment.newInstance("Saint-Petersburg")
         checkError()
     }
 

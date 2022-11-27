@@ -5,32 +5,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import com.application.letitsnow.WeatherSharedPreferences
 import com.application.letitsnow.data.Weather
 import com.application.letitsnow.databinding.FragmentStartBinding
 import com.application.letitsnow.ui.BaseFragment
 import com.application.letitsnow.ui.MainActivity
 import com.application.letitsnow.ui.settings.OnSelectedTownClickListener
 import com.application.letitsnow.ui.settings.SettingsFragment
+import com.application.letitsnow.utils.isOnline
 
 class StartFragment : BaseFragment() {
 
     private var binding: FragmentStartBinding? = null
     private var viewModel: StartViewModel? = null
-    private val callback = object : OnSelectedTownClickListener{
+    private var sharedPreferences: WeatherSharedPreferences? = null
+    private val callback = object : OnSelectedTownClickListener {
         override fun onTownClick(town: String) {
             viewModel?.onTownChanged(town)
         }
     }
 
     companion object {
-        const val SELECTED_TOWN = "selectedTown"
-        fun newInstance(
-            selectedTown: String?,
-        ) = StartFragment().apply {
-            arguments = Bundle().apply {
-                putString(SELECTED_TOWN, selectedTown)
-            }
-        }
+        fun newInstance() = StartFragment()
     }
 
     override fun onCreateView(
@@ -39,10 +35,20 @@ class StartFragment : BaseFragment() {
     ): View {
         viewModel = ViewModelProvider(
             this,
-            StartViewModel.factory((activity as? MainActivity)?.getRepository())
+            StartViewModel.factory((activity as? MainActivity)?.getRepository(), context)
         )[StartViewModel::class.java]
 
         binding = FragmentStartBinding.inflate(inflater, container, false)
+        sharedPreferences = context?.let { WeatherSharedPreferences(it) }
+
+        if (!isOnline(context)) {
+            viewModel?.town?.set(sharedPreferences?.getTown())
+            viewModel?.temp?.set(sharedPreferences?.getTemperature())
+        } else {
+            viewModel?.town?.set(
+                sharedPreferences?.getTown() ?: "Saint Petersburg")
+            viewModel?.getCurrentWeather()
+        }
 
         binding?.apply {
             data = viewModel
@@ -53,12 +59,6 @@ class StartFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-
-        arguments?.getString(SELECTED_TOWN)?.let { arg ->
-            (arg as? String)?.let {
-                viewModel?.town?.set(it)
-            }
-        }
 
         binding?.buttonSettings?.setOnClickListener {
             replaceFragment(SettingsFragment.newInstance(callback))
