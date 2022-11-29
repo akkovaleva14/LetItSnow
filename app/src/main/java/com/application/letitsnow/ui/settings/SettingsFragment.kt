@@ -12,14 +12,13 @@ import androidx.transition.Fade
 import androidx.transition.Transition
 import androidx.transition.TransitionManager
 import com.application.letitsnow.R
-import com.application.letitsnow.ui.start.StartViewModel
 import com.application.letitsnow.databinding.FragmentSettingsBinding
-import com.application.letitsnow.utils.isOnline
 import com.application.letitsnow.ui.BaseFragment
 import com.application.letitsnow.ui.MainActivity
-import com.application.letitsnow.ui.start.StartFragment
+import com.application.letitsnow.ui.start.StartViewModel
+import com.application.letitsnow.utils.isOnline
 
-class SettingsFragment(val listener: OnSelectedTownClickListener) : BaseFragment(),
+class SettingsFragment(private val listener: OnSelectedTownClickListener) : BaseFragment(),
     AdapterView.OnItemSelectedListener {
 
     private var binding: FragmentSettingsBinding? = null

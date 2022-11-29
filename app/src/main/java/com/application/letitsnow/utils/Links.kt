@@ -1,3 +1,3 @@
 package com.application.letitsnow.utils
 
-const val BASE_URL = "http://api.weatherapi.com/"
+const val BASE_URL = "https://api.weatherapi.com/"

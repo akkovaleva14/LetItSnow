@@ -29,18 +29,25 @@ internal fun updateAppWidget(
     val widgetText = context.getString(R.string.appwidgetTown)
     // Construct the RemoteViews object
     val remoteViews = RemoteViews(context.packageName, R.layout.weather_widget)
-    remoteViews.setTextViewText(R.id.appwidgetTown, widgetText)
+    remoteViews.setTextViewText(R.id.appwidgetTemperature, widgetText)
+
 
     //2. define intent --> action which will be performed
-    val intent = Intent(Intent.ACTION_VIEW)
+    /*val intent = Intent(Intent.ACTION_VIEW)
     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     intent.data = Uri.parse("https://insideandroid.in")
 
-    val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
+    val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)*/
 
     //3. set pending intent on view
-    remoteViews.setOnClickPendingIntent(R.id.updateButton, pendingIntent)
+    //remoteViews.setOnClickPendingIntent(R.id.updateButton, pendingIntent)
 
     // Instruct the widget manager to update the widget
     appWidgetManager.updateAppWidget(appWidgetId, remoteViews)
+
+
+    /* val remoteViews = RemoteViews(context.getPackageName(), R.layout.widgetlayout).also {
+         setTextViewText(R.id.textview_widget_layout, "Updated text")
+     }*/
+    appWidgetManager.partiallyUpdateAppWidget(appWidgetId, remoteViews)
 }
