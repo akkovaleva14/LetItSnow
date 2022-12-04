@@ -1,7 +1,6 @@
 package com.application.letitsnow.ui.start
 
 import android.content.Context
-import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.*
 import com.application.letitsnow.WeatherRepository

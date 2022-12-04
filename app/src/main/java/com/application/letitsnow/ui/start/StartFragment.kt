@@ -100,4 +100,6 @@ class StartFragment : BaseFragment() {
         super.onDestroyView()
         binding = null
     }
+
+
 }

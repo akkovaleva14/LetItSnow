@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">LetItSnow</string>
     <string name="appwidgetTown">Saint-Petersburg Forever</string>
+    <string name="appwidgetTemperature">20°C</string>
     <string name="add_widget">Add widget</string>
     <string name="app_widget_description">This is an app widget description</string>
     <string name="town">Saint-Petersburg</string>
