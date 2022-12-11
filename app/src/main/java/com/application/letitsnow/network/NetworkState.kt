@@ -9,8 +9,7 @@ sealed class NetworkState<out T> {
 
 fun <T> Response<T>.parseResponse(): NetworkState<T> {
     return if (this.isSuccessful && this.body() != null) {
-        val responseBody = this.body()
-        NetworkState.Success(responseBody!!)
+        NetworkState.Success(this.body()!!)
     } else {
         NetworkState.Error(this)
     }

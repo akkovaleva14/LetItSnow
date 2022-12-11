@@ -7,6 +7,11 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.widget.RemoteViews
+import com.application.letitsnow.network.NetworkState.Success
+import com.application.letitsnow.ui.MainActivity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class WeatherWidget : AppWidgetProvider() {
 
@@ -27,22 +32,38 @@ class WeatherWidget : AppWidgetProvider() {
 
         val remoteViews = RemoteViews(context.packageName, R.layout.weather_widget)
         sharedPreferences = WeatherSharedPreferences(context)
+        val town = sharedPreferences?.getTown() ?: "Saint Petersburg"
 
         remoteViews.setTextViewText(
             R.id.appwidgetTown,
-            sharedPreferences?.getTown() ?: "Saint Petersburg"
+            town
         )
         remoteViews.setTextViewText(
             R.id.appwidgetTemperature,
             sharedPreferences?.getTemperature() ?: "-25C"
         )
 
+
+        GlobalScope.launch(Dispatchers.Main) {
+            val remoteTemp = networkRequest(town)
+
+            remoteTemp?.let {
+                remoteViews.setTextViewText(
+                    R.id.appwidgetTemperature,
+                    it
+                )
+            }
+
+            val widget = ComponentName(context, WeatherWidget::class.java)
+            AppWidgetManager.getInstance(context).updateAppWidget(widget, remoteViews)
+        }
+
         val widget = ComponentName(context, WeatherWidget::class.java)
         AppWidgetManager.getInstance(context).updateAppWidget(widget, remoteViews)
 
         super.onReceive(context, intent)
-    }
 
+    }
 
     private fun updateAppWidget(
         context: Context,
@@ -75,4 +96,13 @@ class WeatherWidget : AppWidgetProvider() {
         intent.action = ACTION_WIDGET_RECEIVER
         return PendingIntent.getBroadcast(context, 0, intent, 0)
     }
+
+     private suspend fun networkRequest(town: String): String? {
+         return when (val townWeather = MainActivity().getRepository()?.getTownWeather(town)) {
+
+             is Success -> townWeather.data.current.temp_c.toString()
+             else -> null
+         }
+
+     }
 }

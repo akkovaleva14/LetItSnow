@@ -25,10 +25,6 @@ class StartFragment : BaseFragment() {
         }
     }
 
-    companion object {
-        fun newInstance() = StartFragment()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,7 +42,8 @@ class StartFragment : BaseFragment() {
             viewModel?.temp?.set(sharedPreferences?.getTemperature())
         } else {
             viewModel?.town?.set(
-                sharedPreferences?.getTown() ?: "Saint Petersburg")
+                sharedPreferences?.getTown() ?: "Saint Petersburg"
+            )
             viewModel?.getCurrentWeather()
         }
 
@@ -68,7 +65,6 @@ class StartFragment : BaseFragment() {
             viewLifecycleOwner
         ) { bindWeatherOfTown(it) }
 
-        //   checkError()
     }
 
     private fun bindWeatherOfTown(weather: Weather?) {
@@ -76,30 +72,8 @@ class StartFragment : BaseFragment() {
         binding?.temperature?.text = weather?.current?.temp_c?.toString()
     }
 
-    /*private fun checkError() {
-        if (isOnline(context)) {
-            viewModel?.getCurrentWeather()
-            toggle(false)
-        } else {
-            toggle(true)
-        }
-    }
-
-    private fun toggle(show: Boolean) {
-        val transition: Transition = Fade()
-        transition.duration = 600
-        transition.addTarget(binding?.toast as View)
-        TransitionManager.beginDelayedTransition(
-            binding?.root as ViewGroup,
-            transition
-        )
-        binding?.toast?.isVisible = show
-    }*/
-
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
     }
-
-
 }

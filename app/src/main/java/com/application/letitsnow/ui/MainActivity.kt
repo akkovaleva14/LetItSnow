@@ -1,28 +1,23 @@
 package com.application.letitsnow.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.application.letitsnow.R
 import com.application.letitsnow.WeatherRepository
-import com.application.letitsnow.network.ApiService
 import com.application.letitsnow.network.RetrofitClient
 import com.application.letitsnow.ui.start.StartFragment
 
 class MainActivity : AppCompatActivity() {
-    var apiService: ApiService? = null
+    var apiService = RetrofitClient.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        apiService = RetrofitClient.getInstance()
-
         setContentView(R.layout.activity_main)
     }
 
-
     fun getRepository(): WeatherRepository? {
-        return apiService?.let { WeatherRepository(it) }
+        return WeatherRepository(apiService)
     }
 
     override fun onResume() {
