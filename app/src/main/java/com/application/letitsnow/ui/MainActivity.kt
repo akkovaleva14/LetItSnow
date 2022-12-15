@@ -2,7 +2,9 @@ package com.application.letitsnow.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
+import com.application.letitsnow.App
 import com.application.letitsnow.R
 import com.application.letitsnow.WeatherRepository
 import com.application.letitsnow.network.RetrofitClient
@@ -13,6 +15,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        /*if (App.getApp()?.isNightModeEnabled() == true) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }*/
+
+      //  AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES) //For night mode theme
+     //   AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO) //For day mode theme
         setContentView(R.layout.activity_main)
     }
 

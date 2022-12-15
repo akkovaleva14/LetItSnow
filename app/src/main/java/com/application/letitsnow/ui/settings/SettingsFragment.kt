@@ -6,12 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.CompoundButton
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
+import com.application.letitsnow.App
 import com.application.letitsnow.R
 import com.application.letitsnow.databinding.FragmentSettingsBinding
 import com.application.letitsnow.ui.BaseFragment
 import com.application.letitsnow.ui.MainActivity
 import com.application.letitsnow.ui.start.StartViewModel
+
 
 class SettingsFragment(private val listener: OnSelectedTownClickListener) : BaseFragment(),
     AdapterView.OnItemSelectedListener {
@@ -22,6 +26,7 @@ class SettingsFragment(private val listener: OnSelectedTownClickListener) : Base
     companion object {
         fun newInstance(listener: OnSelectedTownClickListener) = SettingsFragment(listener)
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +39,10 @@ class SettingsFragment(private val listener: OnSelectedTownClickListener) : Base
 
         binding = FragmentSettingsBinding.inflate(inflater, container, false)
         return binding!!.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        // Logic related to using $textToDisplay
     }
 
     override fun onResume() {
@@ -55,9 +64,20 @@ class SettingsFragment(private val listener: OnSelectedTownClickListener) : Base
         }
         binding?.spinner?.onItemSelectedListener = this
 
-        binding?.switchIt?.setOnClickListener {
 
-        }
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+            binding?.switchIt?.setChecked(true);
+
+        binding?.switchIt?.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                App.getApp()?.setIsNightModeEnabled(true)
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                App.getApp()?.setIsNightModeEnabled(false)
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        })
+
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {

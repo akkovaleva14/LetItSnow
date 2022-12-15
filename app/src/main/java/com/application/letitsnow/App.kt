@@ -2,8 +2,14 @@ package com.application.letitsnow
 
 import android.app.Application
 import android.content.Context
+import android.preference.PreferenceManager
+import androidx.appcompat.app.AppCompatDelegate
+
 
 class App : Application() {
+
+    private val NIGHT_MODE = "NIGHT_MODE"
+    private var isNightModeEnabled = false
 
     init {
         instance = this
@@ -23,10 +29,26 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        // initialize for any
 
-        // Use ApplicationContext.
-        // example: SharedPreferences etc...
+        /*if (App.getApp()?.isNightModeEnabled() == true) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }*/
         val context: Context = App.applicationContext()
+        val mPrefs = PreferenceManager.getDefaultSharedPreferences(this)
+        isNightModeEnabled = mPrefs.getBoolean(NIGHT_MODE, false)
+    }
+
+    fun isNightModeEnabled(): Boolean {
+        return isNightModeEnabled
+    }
+
+    fun setIsNightModeEnabled(isNightModeEnabled: Boolean) {
+        this.isNightModeEnabled = isNightModeEnabled
+        val mPrefs = PreferenceManager.getDefaultSharedPreferences(this)
+        val editor = mPrefs.edit()
+        editor.putBoolean(NIGHT_MODE, isNightModeEnabled)
+        editor.apply()
     }
 }

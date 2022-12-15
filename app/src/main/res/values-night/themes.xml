@@ -2,15 +2,47 @@
     <!-- Base application theme. -->
     <style name="Theme.LetItSnow" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimary">@color/blue_darkest</item>
+        <item name="colorPrimaryDark">@color/blue_extremely_dark</item>
+        <item name="colorPrimaryVariant">@color/blue_darkest</item>
+        <item name="colorOnPrimary">@color/blue_darkest</item>
+        <item name="colorAccent">@color/blue_lightest</item>
+        <item name="android:textColorPrimary">@color/blue_lightest</item>
+        <item name="android:textColorSecondary">@color/blue_lightest</item>
+        <item name="android:textColorTertiary">@color/blue_lightest</item>
+        <item name="android:textColorPrimaryInverse">@color/blue_lightest</item>
+        <item name="android:textColorSecondaryInverse">@color/blue_lightest</item>
+        <item name="android:textColorTertiaryInverse">@color/blue_lightest</item>
+        <item name="colorControlActivated">@color/blue_darkest</item>
+        <item name="colorControlNormal">@color/blue_lightest</item>
+        <item name="colorControlHighlight">@color/blue_darkest</item>
+        <item name="colorButtonNormal">@color/blue_lightest</item>
+        <item name="colorSwitchThumbNormal">@color/blue_lightest</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorSecondary">@color/blue_darkest</item>
+        <item name="colorSecondaryVariant">@color/blue_darkest</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
         <!-- Customize your theme here. -->
     </style>
+
+
+    <style name="Theme.LetItSnow.ActionBar" parent="@android:style/Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/Theme.LetItSnow.ActionBarStyle</item>
+    </style>
+
+    <style name="Theme.LetItSnow.ActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:titleTextStyle">@style/Theme.LetItSnow.ActionBar.TitleTextStyle</item>
+    </style>
+
+    <style name="Theme.LetItSnow.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/blue_lightest</item>
+    </style>
+
+
+    <style name="SwitchTextAppearance" parent="@android:style/TextAppearance.Holo.Small">
+        <item name="android:textColor">@color/blue_lightest</item>
+    </style>
+
 </resources>

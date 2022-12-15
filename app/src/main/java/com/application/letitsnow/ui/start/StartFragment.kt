@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
+import com.application.letitsnow.App
 import com.application.letitsnow.WeatherSharedPreferences
 import com.application.letitsnow.data.Weather
 import com.application.letitsnow.databinding.FragmentStartBinding
@@ -24,6 +26,15 @@ class StartFragment : BaseFragment() {
             viewModel?.onTownChanged(town)
         }
     }
+
+    /*override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (App.getApp()!!.isNightModeEnabled()) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+    }*/
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
