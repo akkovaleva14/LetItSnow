@@ -8,6 +8,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.CompoundButton
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.databinding.DataBindingUtil.setContentView
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import com.application.letitsnow.App
 import com.application.letitsnow.R
@@ -26,7 +28,6 @@ class SettingsFragment(private val listener: OnSelectedTownClickListener) : Base
     companion object {
         fun newInstance(listener: OnSelectedTownClickListener) = SettingsFragment(listener)
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,18 +67,41 @@ class SettingsFragment(private val listener: OnSelectedTownClickListener) : Base
 
 
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
-            binding?.switchIt?.setChecked(true);
+            binding?.switchIt?.isChecked = true
 
         binding?.switchIt?.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 App.getApp()?.setIsNightModeEnabled(true)
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
+                /*activity?.supportFragmentManager
+                    ?.beginTransaction()
+                    ?.remove(SettingsFragment(listener))
+                    ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                    ?.commit()
+                activity?.supportFragmentManager
+                    ?.beginTransaction()
+                    ?.add(R.id.settings_container, SettingsFragment(listener))
+                    ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    ?.commit()*/
+
             } else {
                 App.getApp()?.setIsNightModeEnabled(false)
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+                /*activity?.supportFragmentManager
+                    ?.beginTransaction()
+                    ?.remove(SettingsFragment(listener))
+                    ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                    ?.commit()
+                activity?.supportFragmentManager
+                    ?.beginTransaction()
+                    ?.add(R.id.settings_container, SettingsFragment(listener))
+                    ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    ?.commit()*/
+
             }
         })
-
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {

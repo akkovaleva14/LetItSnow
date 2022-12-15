@@ -4,6 +4,9 @@ import android.app.Application
 import android.content.Context
 import android.preference.PreferenceManager
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.FragmentTransaction
+import com.application.letitsnow.ui.MainActivity
+import com.application.letitsnow.ui.settings.SettingsFragment
 
 
 class App : Application() {

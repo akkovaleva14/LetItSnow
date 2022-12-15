@@ -40,6 +40,11 @@
     <style name="Theme.LetItSnow.AppWidgetContainer" parent="Theme.LetItSnow.AppWidgetContainerParent">
         <!-- Apply padding to avoid the content of the widget colliding with the rounded corners -->
         <item name="appWidgetPadding">16dp</item>
+        <item name="appWidgetBackgroundColor">@color/blue_extremely_light</item>
+        <item name="appWidgetTextColor">@color/blue_extremely_dark</item>
+        <item name="colorControlNormal">@color/blue_darkest</item>
+
+
     </style>
 
 
