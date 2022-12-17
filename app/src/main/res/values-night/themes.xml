@@ -1,29 +1,19 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Theme.LetItSnow" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.LetItSnow" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/blue_darkest</item>
         <item name="colorPrimaryDark">@color/blue_extremely_dark</item>
-        <item name="colorPrimaryVariant">@color/blue_darkest</item>
-        <item name="colorOnPrimary">@color/blue_darkest</item>
         <item name="android:textColorPrimary">@color/blue_lightest</item>
-        <item name="android:textColorPrimaryInverse">@color/blue_lightest</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/blue_darkest</item>
-        <item name="colorSecondaryVariant">@color/blue_darkest</item>
-        <item name="colorOnSecondary">@color/blue_lightest</item>
         <item name="android:textColorSecondary">@color/blue_lightest</item>
-        <item name="android:textColorSecondaryInverse">@color/blue_lightest</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimary</item>
+        <item name="android:statusBarColor">@color/blue_darkest</item>
         <!-- Customize your theme here. -->
         <item name="colorAccent">@color/blue_lightest</item>
         <item name="android:textColorTertiary">@color/blue_lightest</item>
-        <item name="android:textColorTertiaryInverse">@color/blue_lightest</item>
         <item name="colorControlActivated">@color/blue_darkest</item>
-        <item name="colorControlNormal">@color/blue_lightest</item>
-        <item name="colorControlHighlight">@color/blue_darkest</item>
-        <item name="colorButtonNormal">@color/blue_lightest</item>
         <item name="colorSwitchThumbNormal">@color/blue_lightest</item>
     </style>
 
