@@ -5,6 +5,6 @@
         <attr name="appWidgetRadius" format="dimension" />
         <attr name="appWidgetBackgroundColor" format="color" />
         <attr name="appWidgetTextColor" format="color" />
-        <attr name="colorControlNormal" format="color" />
+        <attr name="appWidgetColorControlNormal" format="color" />
     </declare-styleable>
 </resources>

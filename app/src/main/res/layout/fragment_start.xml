@@ -12,8 +12,8 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:background="?attr/colorPrimaryDark"
+        android:orientation="vertical"
         tools:context=".ui.start.StartFragment">
 
         <TextView
@@ -25,8 +25,7 @@
             android:layout_weight="1"
             android:text="@{data.town}"
             android:textSize="32sp"
-            tools:text="@string/town"
-            tools:textColor="@color/light_blue_900" />
+            tools:text="@string/town" />
 
         <TextView
             android:id="@+id/temperature"
@@ -37,8 +36,7 @@
             android:layout_weight="5"
             android:text="@{data.temp}"
             android:textSize="32sp"
-            tools:text="@string/temperature"
-            tools:textColor="@color/light_blue_900" />
+            tools:text="@string/temperature" />
 
         <Button
             android:id="@+id/buttonSettings"
@@ -47,8 +45,7 @@
             android:layout_marginHorizontal="32dp"
             android:layout_marginVertical="32dp"
             android:layout_weight="0"
-            android:background="@drawable/settings"
-            tools:textColor="@color/light_blue_900" />
+            android:background="@drawable/settings" />
 
     </LinearLayout>
 </layout>

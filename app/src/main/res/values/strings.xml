@@ -1,15 +1,15 @@
 <resources>
     <string name="app_name">LetItSnow</string>
-    <string name="appwidgetTown">Saint-Petersburg Forever</string>
+    <string name="appwidgetTown">Saint Petersburg</string>
     <string name="appwidgetTemperature">20°C</string>
     <string name="add_widget">Add widget</string>
     <string name="app_widget_description">This is an app widget description</string>
-    <string name="town">Saint-Petersburg</string>
+    <string name="town">Saint Petersburg</string>
     <string name="temperature">24°C</string>
     <string name="switchIt">Dark mode?</string>
 
     <string-array name="spinner_array">
-        <item>Saint-Petersburg</item>
+        <item>Saint Petersburg</item>
         <item>Moscow</item>
         <item>Obninsk</item>
         <item>Cheboksary</item>
