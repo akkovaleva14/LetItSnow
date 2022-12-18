@@ -5,6 +5,7 @@ import android.content.Context
 class WeatherSharedPreferences(context: Context) {
 
     companion object {
+        const val NIGHT_MODE = "NIGHT_MODE"
         const val TOWN = "town"
         const val TEMPERATURE = "temperature"
         const val EMPTY = ""
@@ -30,7 +31,6 @@ class WeatherSharedPreferences(context: Context) {
         }
     }
 
-
     fun getTemperature(): String? {
         return preferences.getString(TEMPERATURE, EMPTY)
     }
@@ -45,6 +45,17 @@ class WeatherSharedPreferences(context: Context) {
     fun clearTemperature() {
         with(preferences.edit()) {
             remove(TEMPERATURE).clear()
+            apply()
+        }
+    }
+
+    fun getThemeMode(): Boolean {
+        return preferences.getBoolean(NIGHT_MODE, false)
+    }
+
+    fun setThemeMode(value: Boolean) {
+        with(preferences.edit()) {
+            putBoolean(NIGHT_MODE, value)
             apply()
         }
     }

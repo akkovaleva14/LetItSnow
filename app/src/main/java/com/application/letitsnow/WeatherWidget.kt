@@ -32,7 +32,9 @@ class WeatherWidget : AppWidgetProvider() {
 
         val remoteViews = RemoteViews(context.packageName, R.layout.weather_widget)
         sharedPreferences = WeatherSharedPreferences(context)
-        val town = sharedPreferences?.getTown() ?: "Saint Petersburg"
+
+        val town = if (sharedPreferences?.getTown().isNullOrEmpty()) "Saint Petersburg"
+        else sharedPreferences?.getTown() ?: "Saint Petersburg"
 
         remoteViews.setTextViewText(
             R.id.appwidgetTown,
@@ -40,9 +42,8 @@ class WeatherWidget : AppWidgetProvider() {
         )
         remoteViews.setTextViewText(
             R.id.appwidgetTemperature,
-            sharedPreferences?.getTemperature() ?: "-25C"
+            sharedPreferences?.getTemperature() ?: "-25"
         )
-
 
         GlobalScope.launch(Dispatchers.Main) {
             val remoteTemp = networkRequest(town)
@@ -62,7 +63,6 @@ class WeatherWidget : AppWidgetProvider() {
         AppWidgetManager.getInstance(context).updateAppWidget(widget, remoteViews)
 
         super.onReceive(context, intent)
-
     }
 
     private fun updateAppWidget(
@@ -79,7 +79,7 @@ class WeatherWidget : AppWidgetProvider() {
         )
         remoteViews.setTextViewText(
             R.id.appwidgetTemperature,
-            sharedPreferences?.getTemperature() ?: "-25C"
+            sharedPreferences?.getTemperature() ?: "-25"
         )
 
         remoteViews.setOnClickPendingIntent(
@@ -90,19 +90,16 @@ class WeatherWidget : AppWidgetProvider() {
         appWidgetManager.updateAppWidget(appWidgetId, remoteViews)
     }
 
-
     private fun getPendingSelfIntent(context: Context?): PendingIntent? {
         val intent = Intent(context, WeatherWidget::class.java)
         intent.action = ACTION_WIDGET_RECEIVER
         return PendingIntent.getBroadcast(context, 0, intent, 0)
     }
 
-     private suspend fun networkRequest(town: String): String? {
-         return when (val townWeather = MainActivity().getRepository()?.getTownWeather(town)) {
-
-             is Success -> townWeather.data.current.temp_c.toString()
-             else -> null
-         }
-
-     }
+    private suspend fun networkRequest(town: String): String? {
+        return when (val townWeather = MainActivity().getRepository()?.getTownWeather(town)) {
+            is Success -> townWeather.data.current.temp_c.toString()
+            else -> null
+        }
+    }
 }

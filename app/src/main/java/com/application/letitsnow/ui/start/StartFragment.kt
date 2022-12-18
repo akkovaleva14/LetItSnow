@@ -4,11 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
-import com.application.letitsnow.App
 import com.application.letitsnow.WeatherSharedPreferences
-import com.application.letitsnow.data.Weather
 import com.application.letitsnow.databinding.FragmentStartBinding
 import com.application.letitsnow.ui.BaseFragment
 import com.application.letitsnow.ui.MainActivity
@@ -27,15 +24,6 @@ class StartFragment : BaseFragment() {
         }
     }
 
-    /*override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        if (App.getApp()!!.isNightModeEnabled()) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
-    }*/
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,13 +36,14 @@ class StartFragment : BaseFragment() {
         binding = FragmentStartBinding.inflate(inflater, container, false)
         sharedPreferences = context?.let { WeatherSharedPreferences(it) }
 
+        val town = if (sharedPreferences?.getTown().isNullOrEmpty()) "Saint Petersburg"
+        else sharedPreferences?.getTown() ?: "Saint Petersburg"
+
+        viewModel?.town?.set(town)
+
         if (!isOnline(context)) {
-            viewModel?.town?.set(sharedPreferences?.getTown())
             viewModel?.temp?.set(sharedPreferences?.getTemperature())
         } else {
-            viewModel?.town?.set(
-                sharedPreferences?.getTown() ?: "Saint Petersburg"
-            )
             viewModel?.getCurrentWeather()
         }
 
@@ -72,16 +61,15 @@ class StartFragment : BaseFragment() {
             replaceFragment(SettingsFragment.newInstance(callback))
         }
 
-        viewModel?.weather?.observe(
+      /*  viewModel?.weather?.observe(
             viewLifecycleOwner
-        ) { bindWeatherOfTown(it) }
-
+        ) { bindWeatherOfTown(it) }*/
     }
 
-    private fun bindWeatherOfTown(weather: Weather?) {
+   /* private fun bindWeatherOfTown(weather: Weather?) {
         binding?.town?.text = weather?.location?.name
         binding?.temperature?.text = weather?.current?.temp_c?.toString()
-    }
+    }*/
 
     override fun onDestroyView() {
         super.onDestroyView()

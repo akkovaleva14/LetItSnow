@@ -28,6 +28,7 @@ class StartViewModel(
                         weatherRepository.getTownWeather(it)) {
                         is NetworkState.Success -> {
                             _weather.postValue(townWeather.data)
+
                             temp.set(townWeather.data.current.temp_c.toString())
                             if (context != null) {
                                 WeatherSharedPreferences(context).setTemperature(townWeather.data.current.temp_c.toString())
