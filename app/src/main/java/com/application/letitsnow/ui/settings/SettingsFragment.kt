@@ -1,23 +1,22 @@
 package com.application.letitsnow.ui.settings
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.CompoundButton
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.databinding.DataBindingUtil.setContentView
-import androidx.fragment.app.FragmentTransaction
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.application.letitsnow.App
 import com.application.letitsnow.R
+import com.application.letitsnow.WeatherSharedPreferences
 import com.application.letitsnow.databinding.FragmentSettingsBinding
 import com.application.letitsnow.ui.BaseFragment
 import com.application.letitsnow.ui.MainActivity
 import com.application.letitsnow.ui.start.StartViewModel
-
 
 class SettingsFragment(private val listener: OnSelectedTownClickListener) : BaseFragment(),
     AdapterView.OnItemSelectedListener {
@@ -42,10 +41,6 @@ class SettingsFragment(private val listener: OnSelectedTownClickListener) : Base
         return binding!!.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        // Logic related to using $textToDisplay
-    }
-
     override fun onResume() {
         super.onResume()
         binding?.buttonArrowBack?.setOnClickListener {
@@ -62,6 +57,10 @@ class SettingsFragment(private val listener: OnSelectedTownClickListener) : Base
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             // Apply the adapter to the spinner
             binding?.spinner?.adapter = adapter
+
+            binding?.spinner?.setSelection(adapter.getPosition(context?.let {
+                WeatherSharedPreferences(it).getTown()
+            }))
         }
         binding?.spinner?.onItemSelectedListener = this
 
@@ -69,39 +68,26 @@ class SettingsFragment(private val listener: OnSelectedTownClickListener) : Base
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
             binding?.switchIt?.isChecked = true
 
-        binding?.switchIt?.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                App.getApp()?.setIsNightModeEnabled(true)
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        binding?.switchIt?.setOnCheckedChangeListener { buttonView, isChecked ->
+            App.switchThemeMode(isChecked)
 
-                /*activity?.supportFragmentManager
-                    ?.beginTransaction()
-                    ?.remove(SettingsFragment(listener))
-                    ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-                    ?.commit()
-                activity?.supportFragmentManager
-                    ?.beginTransaction()
-                    ?.add(R.id.settings_container, SettingsFragment(listener))
-                    ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                    ?.commit()*/
+            context?.let { WeatherSharedPreferences(it).setThemeMode(isChecked) }
 
-            } else {
-                App.getApp()?.setIsNightModeEnabled(false)
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            replaceFragment(SettingsFragment(listener))
+        }
+    }
 
-                /*activity?.supportFragmentManager
-                    ?.beginTransaction()
-                    ?.remove(SettingsFragment(listener))
-                    ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-                    ?.commit()
-                activity?.supportFragmentManager
-                    ?.beginTransaction()
-                    ?.add(R.id.settings_container, SettingsFragment(listener))
-                    ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                    ?.commit()*/
+    private fun View.setColor(res: Int) {
+        context?.let { ctx ->
+            ContextCompat.getColor(ctx, res)
+        }?.let {
+            this.setBackgroundColor(it)
+        }
+    }
 
-            }
-        })
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {

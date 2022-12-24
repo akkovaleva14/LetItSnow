@@ -58,7 +58,7 @@ class StartFragment : BaseFragment() {
         super.onResume()
 
         binding?.buttonSettings?.setOnClickListener {
-            replaceFragment(SettingsFragment.newInstance(callback))
+            replaceFragmentWithBackStack(SettingsFragment.newInstance(callback))
         }
 
       /*  viewModel?.weather?.observe(

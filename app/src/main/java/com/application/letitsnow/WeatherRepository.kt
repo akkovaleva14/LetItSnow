@@ -9,7 +9,6 @@ class WeatherRepository(private val api: ApiService) {
 
     suspend fun getTownWeather(town: String): NetworkState<Weather> {
         val response = api.getEverythingAboutTown(q = town)
-
         return response.parseResponse()
     }
 
