@@ -6,12 +6,15 @@ import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.os.Build
+import android.util.Log
 import android.widget.RemoteViews
 import com.application.letitsnow.network.NetworkState.Success
 import com.application.letitsnow.ui.MainActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+
 
 class WeatherWidget : AppWidgetProvider() {
 
@@ -82,18 +85,35 @@ class WeatherWidget : AppWidgetProvider() {
             sharedPreferences?.getTemperature() ?: "-25"
         )
 
+        val ids = AppWidgetManager.getInstance(context)
+            .getAppWidgetIds(ComponentName(context, WeatherWidget::class.java))
+
+
+        val pendingUpdate = getPendingSelfIntent(context, appWidgetId, ids)
+
         remoteViews.setOnClickPendingIntent(
             R.id.updateButton,
-            getPendingSelfIntent(context)
+            pendingUpdate
         )
 
         appWidgetManager.updateAppWidget(appWidgetId, remoteViews)
+        appWidgetManager.notifyAppWidgetViewDataChanged(ids, R.id.appwidgetTemperature)
     }
 
-    private fun getPendingSelfIntent(context: Context?): PendingIntent? {
+    private fun getPendingSelfIntent(context: Context?, appWidgetId: Int, ids: IntArray): PendingIntent? {
         val intent = Intent(context, WeatherWidget::class.java)
-        intent.action = ACTION_WIDGET_RECEIVER
-        return PendingIntent.getBroadcast(context, 0, intent, 0)
+        intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+
+        val flag = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+            PendingIntent.FLAG_MUTABLE
+        else PendingIntent.FLAG_UPDATE_CURRENT
+
+
+        Log.i("sasha", "getPendingSelfIntent: ")
+
+        return PendingIntent.getBroadcast(context, appWidgetId, intent, flag)
     }
 
     private suspend fun networkRequest(town: String): String? {
